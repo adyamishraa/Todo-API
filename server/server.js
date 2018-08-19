@@ -26,6 +26,10 @@ res.send({todos});
 res.status(400).send(e);
     })
 })
+
+app.get('/todos/:id',(res,req)=>{
+    res.send(req.params);
+})
 app.listen(3000,()=>{
     console.log('Connected to port 3000');  
 });
