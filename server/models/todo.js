@@ -19,14 +19,14 @@ var Todo=mongoose.model('Todo',{
 
 module.exports={Todo};
 
-var newTodo=new Todo({
-    text:'Practice  ',
-});
+// var newTodo=new Todo({
+//     text:'Practice  ',
+// });
 
-newTodo.save().then((doc)=>{
-console.log('Saved todo',doc);
+// newTodo.save().then((doc)=>{
+// console.log('Saved todo',doc);
 
-},(e)=>{
-console.log('Unable to save todo',e)
+// },(e)=>{
+// console.log('Unable to save todo',e)
     
-});
+// });
