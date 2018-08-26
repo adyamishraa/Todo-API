@@ -1,3 +1,7 @@
+var env=process.env.NODE_ENV;
+
+
+
 const _=require('lodash');
 var express=require('express');
 var bodyParser=require('body-parser');
@@ -44,17 +48,12 @@ res.send({todo});
 }).catch((e)=>{
     res.status(400).send();
 })
-})
-
-app.post('/login',(req,res)=>{
-    
-})
-
 app.delete('/todos/:id',(req,res)=>{
     var id=req.params.id;
     if(!ObjectId.isValid(id)){
         return res.status(404).send();
     }
+})
 
 Todo.findByIdAndRemove(id).then((todo)=>{
 if(!todo){
@@ -91,6 +90,22 @@ app.patch('/todos/:id',(req,res)=>{
     })
 
 })
+
+app.post('/users',(req,res)=>{
+    var body=_.pick(req.body,['email','password']);
+    var user= new User(body);
+
+    user.save().then((user)=>{
+        return user.generateAuthToken();
+    }).then((token)=>{
+    res.header('x-auth',token).send(user);
+    }).catch((e)=>{
+        console.log(e);
+        
+        res.status(400).send({error:e.toString});
+    })
+})
+
 
 app.listen(port,()=>{
     console.log(`Connected to port ${port}`);  
